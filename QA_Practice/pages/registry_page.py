@@ -12,7 +12,7 @@ email_field = (By.CSS_SELECTOR, "#emailAddress")
 pass_field = (By.CSS_SELECTOR, "#password")
 checkbox = (By.CSS_SELECTOR, "#exampleCheck1")
 submit_btn = (By.CSS_SELECTOR, "#registerBtn")
-alert_success = (By.CSS_SELECTOR, "#message")
+alert_success = (By.CSS_SELECTOR, ".alert-danger")
 
 
 class SignUpPage(BasePage):
@@ -51,7 +51,9 @@ class SignUpPage(BasePage):
     def alert_success_is_displayed(self):
         return self.find_elem(alert_success).is_displayed()
 
-
+    @property
+    def alert_success_text(self):
+        return self.find_elem(alert_success).text
 
 
 

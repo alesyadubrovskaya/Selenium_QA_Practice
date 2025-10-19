@@ -14,4 +14,5 @@ def test_valid_register_submit(browser):
     signup.checkbox_clk()
     signup.submit()
     assert signup.alert_success_is_displayed == True
+    assert signup.alert_success_text == 'The account has been successfully created!'
     time.sleep(5)
