@@ -34,6 +34,7 @@ class DropdownPage(BasePage):
 
     def choose_dropdown1_random_opt(self, values):
         country_dd = Select(self.find_elem(dropdown1))
+
         country_dd.select_by_visible_text(random.choice(values))
 
     @property
@@ -58,3 +59,4 @@ class DropdownPage(BasePage):
     def hover_subopt2_3(self, browser):
         actions = ActionChains(browser)
         actions.move_to_element(self.find_elem(dropdown2_3_subopt)).perform()
+

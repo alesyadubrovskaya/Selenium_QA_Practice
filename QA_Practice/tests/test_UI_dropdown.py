@@ -1,37 +1,20 @@
 import time
-import pytest
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.action_chains import ActionChains
-
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service)
-driver.maximize_window()
-
-url_form = driver.get('https://qa-practice.netlify.app/dropdowns')
+from pages.dropdowns_page import DropdownPage
 
 
-def test_dropdown1_1():
-    select_dropdown = Select(driver.find_element(By.CSS_SELECTOR, '#dropdown-menu'))
-    orig_opt = driver.find_element(By.XPATH, "//option[text()='Select a country...']")
-    bel_opt = driver.find_element(By.XPATH, "//option[text()='Belarus']")
-    jp_opt = driver.find_element(By.XPATH, "//option[text()='Japan']")
-    assert orig_opt.is_selected() == True
-    select_dropdown.select_by_value('Belarus')
-    assert bel_opt.is_selected() == True
-    select_dropdown.select_by_value('Japan')
-    assert jp_opt.is_selected() == True
-    time.sleep(3)
-    driver.quit()
+def test_dropdown1_1(browser):
+    dropdown_page = DropdownPage(browser)
+    dropdown_page.open_dropdown_page()
+    assert dropdown_page.orig_val_is_displayed == True
+    dropdown_page.choose_dropdown1_opt_val('Japan')
+    assert dropdown_page.chosen_val_txt == True
+    time.sleep(5)
 
 
-def test_dropdown1_2():
-    select_dropdown = Select(driver.find_element(By.CSS_SELECTOR, '#dropdown-menu'))
-    orig_opt = driver.find_element(By.XPATH, "//option[text()='Select a country...']")
-    assert orig_opt.is_selected() == True
+def test_dropdown1_2(browser):
+    dropdown_page = DropdownPage(browser)
+    dropdown_page.open_dropdown_page()
+    assert dropdown_page.orig_val_is_displayed == True
     ls = []
     for opt in select_dropdown.options:
         select_dropdown.select_by_visible_text(opt.get_attribute("text"))
